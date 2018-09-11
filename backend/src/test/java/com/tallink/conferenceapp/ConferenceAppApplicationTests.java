@@ -1,6 +1,9 @@
 package com.tallink.conferenceapp;
 
+import com.tallink.conferenceapp.dto.ParticipantDTO;
 import com.tallink.conferenceapp.model.ConferenceEntity;
+import com.tallink.conferenceapp.model.ConferenceRoomEntity;
+import com.tallink.conferenceapp.model.ParticipantEntity;
 import com.tallink.conferenceapp.repository.ConferenceRepository;
 import com.tallink.conferenceapp.repository.ConferenceRoomRepository;
 import com.tallink.conferenceapp.repository.ParticipantRepository;
@@ -16,6 +19,9 @@ import org.springframework.boot.context.embedded.LocalServerPort;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import java.util.List;
+import java.util.Random;
 
 import static io.restassured.RestAssured.given;
 
@@ -41,6 +47,11 @@ public class ConferenceAppApplicationTests {
 		RestAssured.port = port;
 	}
 
+	public <T> T RandomItemInList(List<T> list){
+		Random rand = new Random();
+		return list.get(rand.nextInt(list.size()));
+	}
+
 	@Test
 	public void testAllParticipantStatus(){
 		given().port(port).when().get("/api/public/participant/").then().assertThat().contentType(ContentType.JSON);
@@ -48,7 +59,8 @@ public class ConferenceAppApplicationTests {
 
 	@Test
 	public void testParticipantIdStatus(){
-		given().port(port).when().get("/api/public/participant/1").then().assertThat().contentType(ContentType.JSON);
+		ParticipantEntity participantEntity = RandomItemInList(this.participantRepository.findAll());
+		given().port(port).when().get("/api/public/participant/" + participantEntity.id).then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
@@ -58,17 +70,19 @@ public class ConferenceAppApplicationTests {
 
 	@Test
 	public void testRoomIdStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/1").then().assertThat().contentType(ContentType.JSON);
+		ConferenceRoomEntity roomEntity = RandomItemInList(this.conferenceRoomRepository.findAll());
+		given().port(port).when().get("/api/public/room/" + roomEntity.id).then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
 	public void testConferenceStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/1/conferences").then().assertThat().contentType(ContentType.JSON);
+		ConferenceRoomEntity roomEntity = RandomItemInList(this.conferenceRoomRepository.findAll());
+		given().port(port).when().get("/api/public/room/"+ roomEntity.id +"/conferences").then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
 	public void testConferenceIdStatus() throws Exception {
-		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
+		ConferenceEntity conferenceEntity = RandomItemInList(this.conferenceRepository.findAll());
 		given().port(port).when().get("/api/public/room/"+ conferenceEntity.getConferenceRoom().id +"/conferences/" + conferenceEntity.id).then().assertThat().contentType(ContentType.JSON);
 	}
 
@@ -108,6 +122,7 @@ public class ConferenceAppApplicationTests {
 	@Test
 	public void testDeleteRoomId(){
 		int count = this.conferenceRoomRepository.findAll().size();
+
 		given().port(port).when().delete("/api/public/room/1");
 		int newcount =  this.conferenceRoomRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);

@@ -12,10 +12,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
@@ -34,7 +31,6 @@ public class UserServiceImp implements UserService {
         grantedAuthorities.add(new SimpleGrantedAuthority(user.role.name()));
         return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), grantedAuthorities);
     }
-
 
     @Override
     public UserEntity saveUser(UserEntity user) {
