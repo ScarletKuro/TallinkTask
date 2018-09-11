@@ -1,6 +1,5 @@
 package com.tallink.conferenceapp;
 
-import com.tallink.conferenceapp.dto.ParticipantDTO;
 import com.tallink.conferenceapp.model.ConferenceEntity;
 import com.tallink.conferenceapp.model.ConferenceRoomEntity;
 import com.tallink.conferenceapp.model.ParticipantEntity;
@@ -88,9 +87,9 @@ public class ConferenceAppApplicationTests {
 
 	@Test
 	public void testRemoveConferenceId(){
-		int count = this.conferenceRepository.findAll().size();
-
-		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
+		List<ConferenceEntity> list = this.conferenceRepository.findAll();
+		int count = list.size();
+		ConferenceEntity conferenceEntity = RandomItemInList(list);
 		given().port(port).when().delete("/api/public/room/"+ conferenceEntity.getConferenceRoom().id+"/conferences/" + conferenceEntity.id);
 		int newcount = this.conferenceRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
@@ -98,8 +97,10 @@ public class ConferenceAppApplicationTests {
 
 	@Test
 	public void testParticipantIdRemove() throws Exception {
-		int count = this.participantRepository.findAll().size();
-		given().port(port).when().delete("/api/public/participant/1");
+		List<ParticipantEntity> list = this.participantRepository.findAll();
+		int count = list.size();
+		ParticipantEntity participantEntity = RandomItemInList(list);
+		given().port(port).when().delete("/api/public/participant/" + participantEntity.id);
 		int newcount =  this.participantRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
 	}
@@ -121,9 +122,10 @@ public class ConferenceAppApplicationTests {
 
 	@Test
 	public void testDeleteRoomId(){
-		int count = this.conferenceRoomRepository.findAll().size();
-
-		given().port(port).when().delete("/api/public/room/1");
+		List<ConferenceRoomEntity> list = this.conferenceRoomRepository.findAll();
+		int count = list.size();
+		ConferenceRoomEntity conferenceRoomEntity = RandomItemInList(list);
+		given().port(port).when().delete("/api/public/room/" + conferenceRoomEntity.id);
 		int newcount =  this.conferenceRoomRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
 	}
