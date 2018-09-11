@@ -8,7 +8,6 @@ import org.springframework.security.oauth2.provider.OAuth2Authentication;
 import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CustomJwtTokenEnhancer implements TokenEnhancer {
 
@@ -17,7 +16,7 @@ public class CustomJwtTokenEnhancer implements TokenEnhancer {
         Object principal = oAuth2Authentication.getPrincipal();
         if (principal instanceof UserEntity) {
             HashMap additionalInfo = new HashMap();
-            additionalInfo.put("name", ((User) principal).getUsername());
+            additionalInfo.put("User name: ", ((User) principal).getUsername());
             ((DefaultOAuth2AccessToken)oAuth2AccessToken).setAdditionalInformation(additionalInfo);
         }
         return oAuth2AccessToken;

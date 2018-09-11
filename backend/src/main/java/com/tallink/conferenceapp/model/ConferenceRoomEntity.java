@@ -25,25 +25,6 @@ public class ConferenceRoomEntity {
     @Max(MAX_SEATS)
     public int seats;
 
-/*    @OneToMany(cascade = {CascadeType.ALL}, orphanRemoval=true)
-        @JoinTable(name = "room_conference_association", joinColumns = {
-                @JoinColumn(name = "room_id")},
-                inverseJoinColumns = {@JoinColumn(name = "conference_id")})*/
-
-    public void setConferences(List<ConferenceEntity> conferences) {
-            this.conferences.clear();
-            if (conferences != null) {
-                for (ConferenceEntity conference : conferences){
-                    this.conferences.add(conference);
-                    conference.setConferenceRoom(this);
-                }
-            }
-    }
-
-    public List<ConferenceEntity> getConferences() {
-        return conferences;
-    }
-
     @OneToMany(mappedBy = "conferenceRoom", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<ConferenceEntity> conferences = new ArrayList<>();
 
@@ -61,5 +42,19 @@ public class ConferenceRoomEntity {
         this.location = location;
         this.seats = seats;
         this.setConferences(conferences);
+    }
+
+    public void setConferences(List<ConferenceEntity> conferences) {
+        this.conferences.clear();
+        if (conferences != null) {
+            for (ConferenceEntity conference : conferences){
+                this.conferences.add(conference);
+                conference.setConferenceRoom(this);
+            }
+        }
+    }
+
+    public List<ConferenceEntity> getConferences() {
+        return conferences;
     }
 }

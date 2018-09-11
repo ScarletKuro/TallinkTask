@@ -42,11 +42,6 @@ public class ConferenceServiceImp implements ConferenceService {
     @Override
     public void deleteConference(Long id) {
         this.conferenceRepository.delete(id);
-        //ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(id);
-        //if (conferenceEntity != null){
-        //    this.conferenceRepository.delete(conferenceEntity);
-        //}
-        //this.conferenceRepository.delete(id);
     }
 
 }

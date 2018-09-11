@@ -25,7 +25,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .requestMatchers()
                 .antMatchers("/oauth/authorize")
-                .regexMatchers("/(?!oauth)", "/(?!lol)")
+                .regexMatchers("/(?!oauth)")
                 .antMatchers("/*")
                 .and()
                 .authorizeRequests()

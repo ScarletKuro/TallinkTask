@@ -2,6 +2,7 @@ package com.tallink.conferenceapp;
 
 import com.tallink.conferenceapp.model.ConferenceEntity;
 import com.tallink.conferenceapp.repository.ConferenceRepository;
+import com.tallink.conferenceapp.repository.ConferenceRoomRepository;
 import com.tallink.conferenceapp.repository.ParticipantRepository;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
@@ -18,7 +19,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import static io.restassured.RestAssured.given;
 
-
 @RunWith(SpringRunner.class)
 @AutoConfigureMockMvc
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
@@ -29,6 +29,9 @@ public class ConferenceAppApplicationTests {
 
 	@Autowired
 	ConferenceRepository conferenceRepository;
+
+	@Autowired
+	ConferenceRoomRepository conferenceRoomRepository;
 
 	@LocalServerPort
 	private int port;
@@ -63,13 +66,11 @@ public class ConferenceAppApplicationTests {
 		given().port(port).when().get("/api/public/room/1/conferences").then().assertThat().contentType(ContentType.JSON);
 	}
 
-
 	@Test
 	public void testConferenceIdStatus() throws Exception {
 		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
 		given().port(port).when().get("/api/public/room/"+ conferenceEntity.getConferenceRoom().id +"/conferences/" + conferenceEntity.id).then().assertThat().contentType(ContentType.JSON);
 	}
-
 
 	@Test
 	public void testRemoveConferenceId(){
@@ -102,5 +103,13 @@ public class ConferenceAppApplicationTests {
 				.post("/api/public/participant/conference/1");
 		int newcount = this.participantRepository.findAll().size();
 		Assert.assertEquals(newcount, count+1);
+	}
+
+	@Test
+	public void testDeleteRoomId(){
+		int count = this.conferenceRoomRepository.findAll().size();
+		given().port(port).when().delete("/api/public/room/1");
+		int newcount =  this.conferenceRoomRepository.findAll().size();
+		Assert.assertEquals(newcount, count-1);
 	}
 }

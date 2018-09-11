@@ -14,5 +14,4 @@ public interface ParticipantService {
     void saveParticipant(ParticipantDTO participantDTO);
 
     void deleteParticipant(Long id);
-
 }

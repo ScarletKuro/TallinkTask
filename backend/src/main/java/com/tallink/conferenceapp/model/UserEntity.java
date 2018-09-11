@@ -8,7 +8,7 @@ import javax.persistence.*;
 import java.util.Arrays;
 import java.util.Collection;
 
-@Entity
+@Entity(name = "UserEntity")
 @DiscriminatorColumn(name = "user_type")
 @Table(name = "user")
 public class UserEntity implements UserDetails {
@@ -36,8 +36,6 @@ public class UserEntity implements UserDetails {
         this.userPassword = userPassword;
         this.role = role;
     }
-
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

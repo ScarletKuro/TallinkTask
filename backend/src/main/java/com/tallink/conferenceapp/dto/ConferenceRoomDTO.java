@@ -32,5 +32,4 @@ public class ConferenceRoomDTO extends AbstractDTO {
         this.location = location;
         this.seats = seats;
     }
-
 }

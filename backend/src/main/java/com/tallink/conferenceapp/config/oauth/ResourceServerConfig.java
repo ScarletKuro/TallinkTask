@@ -44,17 +44,4 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
     public void configure(ResourceServerSecurityConfigurer resources) {
         resources.tokenServices(tokenServices);
     }
-
-/*    @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.
-                anonymous().disable()
-                .authorizeRequests()
-                .antMatchers("/api/private/conference/**").access("hasRole('ADMIN')")
-                .and().exceptionHandling().accessDeniedHandler(new OAuth2AccessDeniedHandler());
-        http.headers().frameOptions().disable(); //to make h2-console work
-
-        http.headers().frameOptions().disable(); //to make h2-console work
-    }*/
-
 }

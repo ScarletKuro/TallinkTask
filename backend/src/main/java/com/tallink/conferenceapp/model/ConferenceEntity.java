@@ -1,7 +1,5 @@
 package com.tallink.conferenceapp.model;
 
-import org.hibernate.annotations.Parent;
-
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;

@@ -1,23 +1,22 @@
 package com.tallink.conferenceapp;
 
-import com.tallink.conferenceapp.dto.*;
-import com.tallink.conferenceapp.model.ConferenceRoomEntity;
-import com.tallink.conferenceapp.model.Role;
+import com.tallink.conferenceapp.dto.ConferenceDTO;
+import com.tallink.conferenceapp.dto.ConferenceRoomDTO;
+import com.tallink.conferenceapp.dto.ParticipantDTO;
 import com.tallink.conferenceapp.model.UserEntity;
-import com.tallink.conferenceapp.service.*;
+import com.tallink.conferenceapp.service.ConferenceRoomService;
+import com.tallink.conferenceapp.service.UserService;
 import com.tallink.conferenceapp.settings.AuthenticationSettings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.format.FormatterRegistry;
 import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 @SpringBootApplication
 @CrossOrigin

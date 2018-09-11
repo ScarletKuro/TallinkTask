@@ -2,6 +2,7 @@ package com.tallink.conferenceapp.controller;
 
 import com.tallink.conferenceapp.dto.ConferenceDTO;
 import com.tallink.conferenceapp.dto.ConferenceRoomDTO;
+import com.tallink.conferenceapp.model.ConferenceRoomEntity;
 import com.tallink.conferenceapp.service.ConferenceRoomService;
 import com.tallink.conferenceapp.service.ConferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -59,6 +62,17 @@ public class ConferenceAppController {
     public void addConference(@RequestBody ConferenceDTO conferenceDTO, @PathVariable Long roomId){
         if (conferenceDTO.roomId == roomId){
             this.conferenceService.saveConference(conferenceDTO);
+        }
+    }
+
+    @RequestMapping(value = "/{roomId}", method = RequestMethod.DELETE)
+    public void removeRoom(@PathVariable Long roomId){
+        Optional<ConferenceRoomDTO> conferenceRoomEntity = this.conferenceRoomService.getRoom(roomId);
+        if (conferenceRoomEntity.isPresent()) {
+            for (ConferenceDTO conferenceDTO : conferenceRoomEntity.get().getConferences()) {
+                this.conferenceService.deleteConference(conferenceDTO.id);
+            }
+            this.conferenceRoomService.deleteRoom(roomId);
         }
     }
 }

@@ -1,7 +1,5 @@
 package com.tallink.conferenceapp.dto;
 
-import com.tallink.conferenceapp.model.ConferenceRoomEntity;
-
 import java.util.Date;
 import java.util.List;
 
