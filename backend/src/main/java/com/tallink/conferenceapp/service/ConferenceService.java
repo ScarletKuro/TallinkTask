@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface ConferenceService {
     Optional<ConferenceDTO> getConference(Long id);
 
-    void saveConference(ConferenceDTO personDTO);
+    void saveConference(ConferenceDTO conferenceDTO);
 
     Page<ConferenceDTO> findConferences(Pageable pageable);
 

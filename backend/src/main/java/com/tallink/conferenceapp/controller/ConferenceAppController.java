@@ -54,4 +54,11 @@ public class ConferenceAppController {
         Page<ConferenceRoomDTO> page = this.conferenceRoomService.findRooms(pageable);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{roomId}/conferences/", method = RequestMethod.POST)
+    public void addConference(@RequestBody ConferenceDTO conferenceDTO, @PathVariable Long roomId){
+        if (conferenceDTO.roomId == roomId){
+            this.conferenceService.saveConference(conferenceDTO);
+        }
+    }
 }

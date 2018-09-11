@@ -39,6 +39,49 @@ public class ConferenceAppApplicationTests {
 	}
 
 	@Test
+	public void testAllParticipantStatus(){
+		given().port(port).when().get("/api/public/participant/").then().assertThat().contentType(ContentType.JSON);
+	}
+
+	@Test
+	public void testParticipantIdStatus(){
+		given().port(port).when().get("/api/public/participant/1").then().assertThat().contentType(ContentType.JSON);
+	}
+
+	@Test
+	public void testAllRoomsStatus() throws Exception {
+		given().port(port).when().get("/api/public/room/").then().assertThat().contentType(ContentType.JSON);
+	}
+
+	@Test
+	public void testRoomIdStatus() throws Exception {
+		given().port(port).when().get("/api/public/room/1").then().assertThat().contentType(ContentType.JSON);
+	}
+
+	@Test
+	public void testConferenceStatus() throws Exception {
+		given().port(port).when().get("/api/public/room/1/conferences").then().assertThat().contentType(ContentType.JSON);
+	}
+
+
+	@Test
+	public void testConferenceIdStatus() throws Exception {
+		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
+		given().port(port).when().get("/api/public/room/"+ conferenceEntity.getConferenceRoom().id +"/conferences/" + conferenceEntity.id).then().assertThat().contentType(ContentType.JSON);
+	}
+
+
+	@Test
+	public void testRemoveConferenceId(){
+		int count = this.conferenceRepository.findAll().size();
+
+		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
+		given().port(port).when().delete("/api/public/room/"+ conferenceEntity.getConferenceRoom().id+"/conferences/" + conferenceEntity.id);
+		int newcount = this.conferenceRepository.findAll().size();
+		Assert.assertEquals(newcount, count-1);
+	}
+
+	@Test
 	public void testParticipantIdRemove() throws Exception {
 		int count = this.participantRepository.findAll().size();
 		given().port(port).when().delete("/api/public/participant/1");
@@ -60,35 +103,4 @@ public class ConferenceAppApplicationTests {
 		int newcount = this.participantRepository.findAll().size();
 		Assert.assertEquals(newcount, count+1);
 	}
-
-	@Test
-	public void testRemoveConferenceId(){
-		int count = this.conferenceRepository.findAll().size();
-
-		ConferenceEntity conferenceEntity = this.conferenceRepository.findOne(1L);
-		given().port(port).when().delete("/api/public/room/"+ conferenceEntity.getConferenceRoom().id+"/conferences/" + conferenceEntity.id);
-		int newcount = this.conferenceRepository.findAll().size();
-		Assert.assertEquals(newcount, count-1);
-	}
-
-	@Test
-	public void testAllRoomsStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/").then().assertThat().contentType(ContentType.JSON);
-	}
-
-	@Test
-	public void testRoomIdStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/1").then().assertThat().contentType(ContentType.JSON);
-	}
-
-	@Test
-	public void testConferenceStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/1/conferences").then().assertThat().contentType(ContentType.JSON);
-	}
-
-	@Test
-	public void testConferenceIdStatus() throws Exception {
-		given().port(port).when().get("/api/public/room/1/conferences/1").then().assertThat().contentType(ContentType.JSON);
-	}
-
 }
