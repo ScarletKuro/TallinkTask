@@ -12,20 +12,20 @@ import router from './router';
 import './style/light-bootstrap-dashboard.scss';
 
 const rootReducer = combineReducers({
-	roomReducer,
-    conferenceReducer,
-    modalReducer,
+  roomReducer,
+  conferenceReducer,
+  modalReducer,
 });
 
 function main() {
 
-    const target = document.getElementById('root');
-    const devTools = window.devToolsExtension ? window.devToolsExtension() : (variable) => variable;
-    const finalCreateStore = compose(applyMiddleware(thunk), devTools)(createStore);
-    const store = finalCreateStore(rootReducer);
-    render(
-        <Provider store={store}>{router}</Provider>, target
-    );
+  const target = document.getElementById('root');
+  const devTools = window.devToolsExtension ? window.devToolsExtension() : (variable) => variable;
+  const finalCreateStore = compose(applyMiddleware(thunk), devTools)(createStore);
+  const store = finalCreateStore(rootReducer);
+  render(
+    <Provider store={store}>{router}</Provider>, target,
+  );
 }
 
 main();
