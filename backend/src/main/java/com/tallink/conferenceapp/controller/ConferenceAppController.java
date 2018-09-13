@@ -47,11 +47,6 @@ public class ConferenceAppController {
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/{roomId}/conferences/{conferenceId}", method = RequestMethod.DELETE)
-    public void deleteConference(@PathVariable Long roomId, @PathVariable Long conferenceId){
-        this.conferenceService.deleteConference(conferenceId);
-    }
-
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public ResponseEntity<Page<ConferenceRoomDTO>> getRooms(Pageable pageable) {
         Page<ConferenceRoomDTO> page = this.conferenceRoomService.findRooms(pageable);
@@ -79,5 +74,10 @@ public class ConferenceAppController {
             }
             this.conferenceRoomService.deleteRoom(roomId);
         }
+    }
+
+    @RequestMapping(value = "/{roomId}/conferences/{conferenceId}", method = RequestMethod.DELETE)
+    public void deleteConference(@PathVariable Long roomId, @PathVariable Long conferenceId){
+        this.conferenceService.deleteConference(conferenceId);
     }
 }
