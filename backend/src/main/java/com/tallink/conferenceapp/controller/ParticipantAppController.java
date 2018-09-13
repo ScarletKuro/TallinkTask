@@ -27,10 +27,6 @@ public class ParticipantAppController {
     @Qualifier("ConferenceServiceImp")
     ConferenceService conferenceService;
 
-    @Autowired
-    @Qualifier("ConferenceRoomServiceImp")
-    ConferenceRoomService conferenceRoomService;
-
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity<ParticipantDTO> getParticipant(@PathVariable Long id) {
         return this.participantService.getParticipant(id)

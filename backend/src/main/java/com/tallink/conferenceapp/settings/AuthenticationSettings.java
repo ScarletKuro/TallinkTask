@@ -40,20 +40,34 @@ public class AuthenticationSettings {
     }
 
     private String key;
+    private String clientId;
+    private String secret;
     private Integer accessTokenValiditySeconds = 0;
     private Integer refreshTokenValiditySeconds = 0;
     private List<UserInfo> users = new ArrayList<>();
 
     public String getKey() {
-        return key;
+        return this.key;
     }
 
     public void setKey(String key) {
         this.key = key;
     }
 
+    public String getSecret() { return this.secret; }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getClientId() { return this.clientId; }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
+    }
+
     public Integer getAccessTokenValiditySeconds() {
-        return accessTokenValiditySeconds;
+        return this.accessTokenValiditySeconds;
     }
 
     public void setAccessTokenValiditySeconds(Integer accessTokenValiditySeconds) {
@@ -61,7 +75,7 @@ public class AuthenticationSettings {
     }
 
     public Integer getRefreshTokenValiditySeconds() {
-        return refreshTokenValiditySeconds;
+        return this.refreshTokenValiditySeconds;
     }
 
     public void setRefreshTokenValiditySeconds(Integer refreshTokenValiditySeconds) {
@@ -69,7 +83,7 @@ public class AuthenticationSettings {
     }
 
     public List<UserInfo> getUsers() {
-        return users;
+        return this.users;
     }
 
     public void setUsers(List<UserInfo> users) {

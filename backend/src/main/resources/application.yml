@@ -9,6 +9,8 @@ api:
 
 authentication:
   key: "d3b6681900dd39068483c3a0decad73fbe42acb363fb55babb87a74b22d6aac5"
+  client-id: tallink
+  secret: "d3023223c60ae47a0b8fab5e924e19a13a8d82ac"
   access-token-validity-seconds: 3600
   refresh-token-validity-seconds: 2592000
   users:

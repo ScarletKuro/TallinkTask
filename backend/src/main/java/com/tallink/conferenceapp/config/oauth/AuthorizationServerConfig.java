@@ -68,9 +68,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
         configurer
                 .inMemory()
-                .withClient("ui")
+                .withClient(this.authenticationSettings.getClientId())
                 .scopes("api")
-                .secret("d3023223c60ae47a0b8fab5e924e19a13a8d82ac")
+                .secret(this.authenticationSettings.getSecret())
                 .authorizedGrantTypes("authorization_code",
                         "refresh_token", "password")
                 .autoApprove(true)
