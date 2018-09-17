@@ -2,11 +2,9 @@ package com.tallink.conferenceapp.controller;
 
 import com.tallink.conferenceapp.dto.ConferenceDTO;
 import com.tallink.conferenceapp.dto.ConferenceRoomDTO;
-import com.tallink.conferenceapp.model.ConferenceRoomEntity;
 import com.tallink.conferenceapp.service.ConferenceRoomService;
 import com.tallink.conferenceapp.service.ConferenceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -20,12 +18,10 @@ import java.util.Optional;
 @RequestMapping(value = "/api/public/room")
 public class ConferenceAppController {
     @Autowired
-    @Qualifier("ConferenceRoomServiceImp")
-    ConferenceRoomService conferenceRoomService;
+    private ConferenceRoomService conferenceRoomService;
 
     @Autowired
-    @Qualifier("ConferenceServiceImp")
-    ConferenceService conferenceService;
+    private ConferenceService conferenceService;
 
     @RequestMapping(value = "/{roomId}/conferences/{conferenceId}", method = RequestMethod.GET)
     public ResponseEntity<ConferenceDTO> getConference(@PathVariable Long roomId, @PathVariable Long conferenceId) {
@@ -60,7 +56,7 @@ public class ConferenceAppController {
 
     @RequestMapping(value = "/{roomId}/conferences/", method = RequestMethod.POST)
     public void addConference(@RequestBody ConferenceDTO conferenceDTO, @PathVariable Long roomId){
-        if (conferenceDTO.roomId == roomId){
+        if (conferenceDTO.getRoomId().equals(roomId)){
             this.conferenceService.saveConference(conferenceDTO);
         }
     }
@@ -70,7 +66,7 @@ public class ConferenceAppController {
         Optional<ConferenceRoomDTO> conferenceRoomEntity = this.conferenceRoomService.getRoom(roomId);
         if (conferenceRoomEntity.isPresent()) {
             for (ConferenceDTO conferenceDTO : conferenceRoomEntity.get().getConferences()) {
-                this.conferenceService.deleteConference(conferenceDTO.id);
+                this.conferenceService.deleteConference(conferenceDTO.getId());
             }
             this.conferenceRoomService.deleteRoom(roomId);
         }

@@ -23,12 +23,10 @@ import java.util.List;
 public class ConferenceAppApplication {
 
     @Autowired
-    @Qualifier("ConferenceRoomServiceImp")
-    ConferenceRoomService conferenceRoomService;
+    private ConferenceRoomService conferenceRoomService;
 
     @Autowired
-    @Qualifier("UserServiceImp")
-    UserService userService;
+    private UserService userService;
 
     @Autowired
     private AuthenticationSettings authenticationSettings;

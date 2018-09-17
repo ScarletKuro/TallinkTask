@@ -6,9 +6,9 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ParticipantMapper {
-    public ParticipantDTO toDTO(ParticipantEntity participant);
+    ParticipantDTO toDTO(ParticipantEntity participant);
 
-    public ParticipantEntity toEntity(ParticipantDTO participantDTO);
+    ParticipantEntity toEntity(ParticipantDTO participantDTO);
 
-    public void mapToEntity(ParticipantDTO participantDTO, @MappingTarget ParticipantEntity participant);
+    void mapToEntity(ParticipantDTO participantDTO, @MappingTarget ParticipantEntity participant);
 }

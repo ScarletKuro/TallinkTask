@@ -15,10 +15,8 @@ import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
-
     @Autowired
     private DefaultTokenServices tokenServices;
-
 
     @Override
     public void configure(HttpSecurity http) throws Exception{

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EntityMapper {
-
     @Autowired
     private ConferenceRoomRepository conferenceRoomRepository;
 
@@ -16,6 +15,6 @@ public class EntityMapper {
     }
 
     public long toReference(ConferenceRoomEntity entity) {
-        return entity != null ? entity.id : null;
+        return entity != null ? entity.getId() : null;
     }
 }

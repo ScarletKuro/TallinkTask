@@ -13,35 +13,51 @@ public class ConferenceRoomEntity {
     @Id
     @GeneratedValue
     @Column(name = "room_id", unique = true, nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(name = "room_name", nullable = false)
-    public String roomName;
+    private String roomName;
 
     @Column(name = "room_location", nullable = false)
-    public String location;
+    private String location;
 
     @Column(name = "room_seats", nullable = false)
     @Max(MAX_SEATS)
-    public int seats;
+    private int seats;
 
     @OneToMany(mappedBy = "conferenceRoom", cascade = CascadeType.ALL, orphanRemoval=true, fetch = FetchType.EAGER)
     private List<ConferenceEntity> conferences = new ArrayList<>();
 
-    public ConferenceRoomEntity(){
-
+    public Long getId() {
+        return this.id;
     }
 
-    public ConferenceRoomEntity(String roomName, String location ,int seats){
-        this.roomName = roomName;
-        this.location = location;
-        this.seats = seats;
+    public void setId(Long id) {
+        this.id = id;
     }
-    public ConferenceRoomEntity(String roomName, String location ,int seats, List<ConferenceEntity> conferences){
+
+    public String getRoomName() {
+        return this.roomName;
+    }
+
+    public void setRoomName(String roomName) {
         this.roomName = roomName;
+    }
+
+    public String getLocation() {
+        return this.location;
+    }
+
+    public void setLocation(String location) {
         this.location = location;
+    }
+
+    public int getSeats() {
+        return this.seats;
+    }
+
+    public void setSeats(int seats) {
         this.seats = seats;
-        this.setConferences(conferences);
     }
 
     public void setConferences(List<ConferenceEntity> conferences) {
@@ -56,5 +72,21 @@ public class ConferenceRoomEntity {
 
     public List<ConferenceEntity> getConferences() {
         return conferences;
+    }
+
+    public ConferenceRoomEntity(){
+
+    }
+
+    public ConferenceRoomEntity(String roomName, String location ,int seats){
+        this.setRoomName(roomName);
+        this.setLocation(location);
+        this.setSeats(seats);
+    }
+    public ConferenceRoomEntity(String roomName, String location ,int seats, List<ConferenceEntity> conferences){
+        this.setRoomName(roomName);
+        this.setLocation(location);
+        this.setSeats(seats);
+        this.setConferences(conferences);
     }
 }

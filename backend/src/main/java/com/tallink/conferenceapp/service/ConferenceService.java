@@ -1,7 +1,6 @@
 package com.tallink.conferenceapp.service;
 
 import com.tallink.conferenceapp.dto.ConferenceDTO;
-import com.tallink.conferenceapp.model.ConferenceEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 

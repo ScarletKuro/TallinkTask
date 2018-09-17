@@ -7,49 +7,80 @@ import java.util.List;
 
 @Entity(name = "ConferenceEntity")
 @Table(name = "conference")
-@Embeddable
 public class ConferenceEntity {
     @Id
     @GeneratedValue
     @Column(name = "conference_id", unique = true, nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(name = "conference_name", nullable = false)
-    public String conferenceName;
+    private String conferenceName;
 
     @Column(name = "conference_datetime", nullable = false)
-    public Date conferenceDateTime;
+    private Date conferenceDateTime;
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "conference_participant_association", joinColumns = {
             @JoinColumn(name = "conference_id")},
             inverseJoinColumns = {@JoinColumn(name = "participant_id")})
-    public List<ParticipantEntity> participants = new ArrayList<>();
+    private List<ParticipantEntity> participants = new ArrayList<>();
 
-    public void setConferenceRoom(ConferenceRoomEntity conference) {
-        this.conferenceRoom = conference;
+    @ManyToOne
+    @JoinColumn(name = "room_id")
+    private ConferenceRoomEntity conferenceRoom;
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getConferenceName() {
+        return this.conferenceName;
+    }
+
+    public void setConferenceName(String conferenceName) {
+        this.conferenceName = conferenceName;
+    }
+
+    public Date getConferenceDateTime() {
+        return this.conferenceDateTime;
+    }
+
+    public void setConferenceDateTime(Date conferenceDateTime) {
+        this.conferenceDateTime = conferenceDateTime;
+    }
+
+    public List<ParticipantEntity> getParticipants() {
+        return this.participants;
+    }
+
+    public void setParticipants(List<ParticipantEntity> participants) {
+        this.participants = participants;
     }
 
     public ConferenceRoomEntity getConferenceRoom() {
         return this.conferenceRoom;
     }
 
-    @ManyToOne
-    @JoinColumn(name = "room_id")
-    private ConferenceRoomEntity conferenceRoom;
+    public void setConferenceRoom(ConferenceRoomEntity conference) {
+        this.conferenceRoom = conference;
+    }
 
     public ConferenceEntity(){
     }
 
     public ConferenceEntity(String conferenceName, Date conferenceDateTime){
-        this.conferenceName = conferenceName;
-        this.conferenceDateTime = conferenceDateTime;
+        this.setConferenceName(conferenceName);
+        this.setConferenceDateTime(conferenceDateTime);
     }
 
     public ConferenceEntity(String conferenceName, Date conferenceDateTime, List<ParticipantEntity> participants, ConferenceRoomEntity conferenceRoomEntity){
-        this.conferenceName = conferenceName;
-        this.conferenceDateTime = conferenceDateTime;
-        this.participants = participants;
+        this.setConferenceName(conferenceName);
+        this.setConferenceDateTime(conferenceDateTime);
+        this.setParticipants(participants);
         this.setConferenceRoom(conferenceRoomEntity);
     }
 }

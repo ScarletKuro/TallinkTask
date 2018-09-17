@@ -11,29 +11,61 @@ public class ParticipantEntity {
     @Id
     @GeneratedValue
     @Column(name = "participant_id", unique = true, nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(name = "participant_name", nullable = false)
-    public String participantName;
+    private String participantName;
 
     @Column(name = "participant_birthday", nullable = false)
-    public Date participantBirthDay;
+    private Date participantBirthDay;
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "participants")
-    List<ConferenceEntity> conference = new ArrayList<>();
+    private List<ConferenceEntity> conference = new ArrayList<>();
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getParticipantName() {
+        return participantName;
+    }
+
+    public void setParticipantName(String participantName) {
+        this.participantName = participantName;
+    }
+
+    public Date getParticipantBirthDay() {
+        return this.participantBirthDay;
+    }
+
+    public void setParticipantBirthDay(Date participantBirthDay) {
+        this.participantBirthDay = participantBirthDay;
+    }
+
+    public List<ConferenceEntity> getConference() {
+        return this.conference;
+    }
+
+    public void setConference(List<ConferenceEntity> conference) {
+        this.conference = conference;
+    }
 
     public ParticipantEntity(){
 
     }
 
     public ParticipantEntity(String participantName, Date participantBirthDay){
-        this.participantName = participantName;
-        this.participantBirthDay = participantBirthDay;
+        this.setParticipantName(participantName);
+        this.setParticipantBirthDay(participantBirthDay);
     }
 
     public ParticipantEntity(String participantName, Date participantBirthDay, List<ConferenceEntity> conference){
-        this.participantName = participantName;
-        this.participantBirthDay = participantBirthDay;
-        this.conference = conference;
+        this.setParticipantName(participantName);
+        this.setParticipantBirthDay(participantBirthDay);
+        this.setConference(conference);
     }
 }

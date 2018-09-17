@@ -15,25 +15,47 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue
     @Column(name = "user_id", unique = true, nullable = false)
-    public Long id;
+    private Long id;
 
     @Column(name = "user_name", nullable = false)
-    public String userName;
+    private String userName;
 
     @Column(name = "user_password", nullable = false)
-    public String userPassword;
+    private String userPassword;
 
     @Column(name = "role", nullable = false)
     @Enumerated(EnumType.STRING)
-    public Role role;
+    private Role role;
 
-    public UserEntity(){
-
+    public Long getId() {
+        return this.id;
     }
 
-    public UserEntity(String userName, String userPassword, Role role){
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return this.userName;
+    }
+
+    public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserPassword() {
+        return this.userPassword;
+    }
+
+    public void setUserPassword(String userPassword) {
         this.userPassword = userPassword;
+    }
+
+    public Role getRole() {
+        return this.role;
+    }
+
+    public void setRole(Role role) {
         this.role = role;
     }
 
@@ -70,5 +92,15 @@ public class UserEntity implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public UserEntity(){
+
+    }
+
+    public UserEntity(String userName, String userPassword, Role role){
+        this.setUserName(userName);
+        this.setUserPassword(userPassword);
+        this.setRole(role);
     }
 }

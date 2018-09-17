@@ -39,4 +39,4 @@ describe('Test Page Routes', function() {
   });
 });
 
-/* eslint no-use-before-define: 2 */  // --> ON
+/* eslint no-undef: 2 */  // --> ON

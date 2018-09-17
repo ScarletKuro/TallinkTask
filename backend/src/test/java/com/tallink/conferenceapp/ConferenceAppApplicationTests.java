@@ -30,23 +30,23 @@ import static io.restassured.RestAssured.given;
 public class ConferenceAppApplicationTests {
 
 	@Autowired
-	ParticipantRepository participantRepository;
+	private ParticipantRepository participantRepository;
 
 	@Autowired
-	ConferenceRepository conferenceRepository;
+	private ConferenceRepository conferenceRepository;
 
 	@Autowired
-	ConferenceRoomRepository conferenceRoomRepository;
+	private ConferenceRoomRepository conferenceRoomRepository;
 
 	@LocalServerPort
 	private int port;
 
 	@Before
-	public void setUp() throws Exception {
+	public void setUp() {
 		RestAssured.port = port;
 	}
 
-	public <T> T RandomItemInList(List<T> list){
+	private <T> T RandomItemInList(List<T> list){
 		Random rand = new Random();
 		return list.get(rand.nextInt(list.size()));
 	}
@@ -59,30 +59,30 @@ public class ConferenceAppApplicationTests {
 	@Test
 	public void testParticipantIdStatus(){
 		ParticipantEntity participantEntity = RandomItemInList(this.participantRepository.findAll());
-		given().port(port).when().get("/api/public/participant/" + participantEntity.id).then().assertThat().contentType(ContentType.JSON);
+		given().port(port).when().get("/api/public/participant/" + participantEntity.getId()).then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
-	public void testAllRoomsStatus() throws Exception {
+	public void testAllRoomsStatus() {
 		given().port(port).when().get("/api/public/room/").then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
-	public void testRoomIdStatus() throws Exception {
+	public void testRoomIdStatus() {
 		ConferenceRoomEntity roomEntity = RandomItemInList(this.conferenceRoomRepository.findAll());
-		given().port(port).when().get("/api/public/room/" + roomEntity.id).then().assertThat().contentType(ContentType.JSON);
+		given().port(port).when().get("/api/public/room/" + roomEntity.getId()).then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
-	public void testConferenceStatus() throws Exception {
+	public void testConferenceStatus() {
 		ConferenceRoomEntity roomEntity = RandomItemInList(this.conferenceRoomRepository.findAll());
-		given().port(port).when().get("/api/public/room/"+ roomEntity.id +"/conferences").then().assertThat().contentType(ContentType.JSON);
+		given().port(port).when().get("/api/public/room/"+ roomEntity.getId() +"/conferences").then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
-	public void testConferenceIdStatus() throws Exception {
+	public void testConferenceIdStatus() {
 		ConferenceEntity conferenceEntity = RandomItemInList(this.conferenceRepository.findAll());
-		given().port(port).when().get("/api/public/room/"+ conferenceEntity.getConferenceRoom().id +"/conferences/" + conferenceEntity.id).then().assertThat().contentType(ContentType.JSON);
+		given().port(port).when().get("/api/public/room/"+ conferenceEntity.getConferenceRoom().getId() +"/conferences/" + conferenceEntity.getId()).then().assertThat().contentType(ContentType.JSON);
 	}
 
 	@Test
@@ -90,17 +90,17 @@ public class ConferenceAppApplicationTests {
 		List<ConferenceEntity> list = this.conferenceRepository.findAll();
 		int count = list.size();
 		ConferenceEntity conferenceEntity = RandomItemInList(list);
-		given().port(port).when().delete("/api/public/room/"+ conferenceEntity.getConferenceRoom().id+"/conferences/" + conferenceEntity.id);
+		given().port(port).when().delete("/api/public/room/"+ conferenceEntity.getConferenceRoom().getId()+"/conferences/" + conferenceEntity.getId());
 		int newcount = this.conferenceRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
 	}
 
 	@Test
-	public void testParticipantIdRemove() throws Exception {
+	public void testParticipantIdRemove() {
 		List<ParticipantEntity> list = this.participantRepository.findAll();
 		int count = list.size();
 		ParticipantEntity participantEntity = RandomItemInList(list);
-		given().port(port).when().delete("/api/public/participant/" + participantEntity.id);
+		given().port(port).when().delete("/api/public/participant/" + participantEntity.getId());
 		int newcount =  this.participantRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
 	}
@@ -125,7 +125,7 @@ public class ConferenceAppApplicationTests {
 		List<ConferenceRoomEntity> list = this.conferenceRoomRepository.findAll();
 		int count = list.size();
 		ConferenceRoomEntity conferenceRoomEntity = RandomItemInList(list);
-		given().port(port).when().delete("/api/public/room/" + conferenceRoomEntity.id);
+		given().port(port).when().delete("/api/public/room/" + conferenceRoomEntity.getId());
 		int newcount =  this.conferenceRoomRepository.findAll().size();
 		Assert.assertEquals(newcount, count-1);
 	}

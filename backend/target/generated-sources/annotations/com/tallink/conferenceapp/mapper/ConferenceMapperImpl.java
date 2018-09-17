@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-09-13T04:07:45+0300",
+    date = "2018-09-17T23:08:20+0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
@@ -29,11 +29,11 @@ public class ConferenceMapperImpl implements ConferenceMapper {
 
         ConferenceDTO conferenceDTO = new ConferenceDTO();
 
-        conferenceDTO.roomId = entityMapper.toReference( conference.getConferenceRoom() );
-        conferenceDTO.id = conference.id;
-        conferenceDTO.conferenceName = conference.conferenceName;
-        conferenceDTO.conferenceDateTime = conference.conferenceDateTime;
-        conferenceDTO.participants = participantEntityListToParticipantDTOList( conference.participants );
+        conferenceDTO.setRoomId( entityMapper.toReference( conference.getConferenceRoom() ) );
+        conferenceDTO.setId( conference.getId() );
+        conferenceDTO.setConferenceName( conference.getConferenceName() );
+        conferenceDTO.setConferenceDateTime( conference.getConferenceDateTime() );
+        conferenceDTO.setParticipants( participantEntityListToParticipantDTOList( conference.getParticipants() ) );
 
         return conferenceDTO;
     }
@@ -46,13 +46,13 @@ public class ConferenceMapperImpl implements ConferenceMapper {
 
         ConferenceEntity conferenceEntity = new ConferenceEntity();
 
-        if ( conferenceDTO.roomId != null ) {
-            conferenceEntity.setConferenceRoom( entityMapper.toReference( conferenceDTO.roomId.longValue() ) );
+        if ( conferenceDTO.getRoomId() != null ) {
+            conferenceEntity.setConferenceRoom( entityMapper.toReference( conferenceDTO.getRoomId().longValue() ) );
         }
-        conferenceEntity.id = conferenceDTO.id;
-        conferenceEntity.conferenceName = conferenceDTO.conferenceName;
-        conferenceEntity.conferenceDateTime = conferenceDTO.conferenceDateTime;
-        conferenceEntity.participants = participantDTOListToParticipantEntityList( conferenceDTO.participants );
+        conferenceEntity.setId( conferenceDTO.getId() );
+        conferenceEntity.setConferenceName( conferenceDTO.getConferenceName() );
+        conferenceEntity.setConferenceDateTime( conferenceDTO.getConferenceDateTime() );
+        conferenceEntity.setParticipants( participantDTOListToParticipantEntityList( conferenceDTO.getParticipants() ) );
 
         return conferenceEntity;
     }
@@ -63,23 +63,23 @@ public class ConferenceMapperImpl implements ConferenceMapper {
             return;
         }
 
-        conference.id = conferenceDTO.id;
-        conference.conferenceName = conferenceDTO.conferenceName;
-        conference.conferenceDateTime = conferenceDTO.conferenceDateTime;
-        if ( conference.participants != null ) {
-            List<ParticipantEntity> list = participantDTOListToParticipantEntityList( conferenceDTO.participants );
+        conference.setId( conferenceDTO.getId() );
+        conference.setConferenceName( conferenceDTO.getConferenceName() );
+        conference.setConferenceDateTime( conferenceDTO.getConferenceDateTime() );
+        if ( conference.getParticipants() != null ) {
+            List<ParticipantEntity> list = participantDTOListToParticipantEntityList( conferenceDTO.getParticipants() );
             if ( list != null ) {
-                conference.participants.clear();
-                conference.participants.addAll( list );
+                conference.getParticipants().clear();
+                conference.getParticipants().addAll( list );
             }
             else {
-                conference.participants = null;
+                conference.setParticipants( null );
             }
         }
         else {
-            List<ParticipantEntity> list = participantDTOListToParticipantEntityList( conferenceDTO.participants );
+            List<ParticipantEntity> list = participantDTOListToParticipantEntityList( conferenceDTO.getParticipants() );
             if ( list != null ) {
-                conference.participants = list;
+                conference.setParticipants( list );
             }
         }
     }
@@ -91,9 +91,9 @@ public class ConferenceMapperImpl implements ConferenceMapper {
 
         ParticipantDTO participantDTO = new ParticipantDTO();
 
-        participantDTO.id = participantEntity.id;
-        participantDTO.participantName = participantEntity.participantName;
-        participantDTO.participantBirthDay = participantEntity.participantBirthDay;
+        participantDTO.setId( participantEntity.getId() );
+        participantDTO.setParticipantName( participantEntity.getParticipantName() );
+        participantDTO.setParticipantBirthDay( participantEntity.getParticipantBirthDay() );
 
         return participantDTO;
     }
@@ -118,9 +118,9 @@ public class ConferenceMapperImpl implements ConferenceMapper {
 
         ParticipantEntity participantEntity = new ParticipantEntity();
 
-        participantEntity.id = participantDTO.id;
-        participantEntity.participantName = participantDTO.participantName;
-        participantEntity.participantBirthDay = participantDTO.participantBirthDay;
+        participantEntity.setId( participantDTO.getId() );
+        participantEntity.setParticipantName( participantDTO.getParticipantName() );
+        participantEntity.setParticipantBirthDay( participantDTO.getParticipantBirthDay() );
 
         return participantEntity;
     }

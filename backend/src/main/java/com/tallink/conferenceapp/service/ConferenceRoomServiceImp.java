@@ -9,7 +9,6 @@ import com.tallink.conferenceapp.repository.ConferenceRoomRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,16 +16,15 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@Component("ConferenceRoomServiceImp")
 public class ConferenceRoomServiceImp implements ConferenceRoomService {
     @Autowired
-    ConferenceRoomRepository conferenceRoomRepository;
+    private ConferenceRoomRepository conferenceRoomRepository;
 
     @Autowired
-    ConferenceRoomMapper conferenceRoomMapper;
+    private ConferenceRoomMapper conferenceRoomMapper;
 
     @Autowired
-    ConferenceMapper conferenceMapper;
+    private ConferenceMapper conferenceMapper;
 
     @Override
     public Page<ConferenceRoomDTO> findRooms(Pageable pageable) {

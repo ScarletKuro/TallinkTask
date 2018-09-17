@@ -6,9 +6,9 @@ import org.mapstruct.*;
 
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE, uses = {ConferenceMapper.class})
 public interface ConferenceRoomMapper {
-    public ConferenceRoomDTO toDTO(ConferenceRoomEntity conferenceRoom);
+    ConferenceRoomDTO toDTO(ConferenceRoomEntity conferenceRoom);
 
-    public ConferenceRoomEntity toEntity(ConferenceRoomDTO conferenceRoomDTO);
+    ConferenceRoomEntity toEntity(ConferenceRoomDTO conferenceRoomDTO);
 
-    public void mapToEntity(ConferenceRoomDTO conferenceRoomDTO, @MappingTarget ConferenceRoomEntity conferenceRoom);
+    void mapToEntity(ConferenceRoomDTO conferenceRoomDTO, @MappingTarget ConferenceRoomEntity conferenceRoom);
 }

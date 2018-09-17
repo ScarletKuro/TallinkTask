@@ -7,7 +7,6 @@ import com.tallink.conferenceapp.repository.ParticipantRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,14 +14,12 @@ import java.util.Optional;
 
 @Service
 @Transactional
-@Component("ParticipantServiceImp")
 public class ParticipantServiceImp implements ParticipantService {
+    @Autowired
+    private ParticipantRepository participantRepository;
 
     @Autowired
-    ParticipantRepository participantRepository;
-
-    @Autowired
-    ParticipantMapper participantMapper;
+    private ParticipantMapper participantMapper;
 
     @Override
     public Page<ParticipantDTO> findParticipant(Pageable pageable) {

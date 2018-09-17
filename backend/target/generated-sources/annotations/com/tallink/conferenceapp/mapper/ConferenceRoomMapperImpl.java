@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-09-13T04:07:45+0300",
+    date = "2018-09-17T23:08:20+0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
@@ -29,11 +29,11 @@ public class ConferenceRoomMapperImpl implements ConferenceRoomMapper {
 
         ConferenceRoomDTO conferenceRoomDTO = new ConferenceRoomDTO();
 
+        conferenceRoomDTO.setId( conferenceRoom.getId() );
         conferenceRoomDTO.setConferences( conferenceEntityListToConferenceDTOList( conferenceRoom.getConferences() ) );
-        conferenceRoomDTO.id = conferenceRoom.id;
-        conferenceRoomDTO.roomName = conferenceRoom.roomName;
-        conferenceRoomDTO.seats = conferenceRoom.seats;
-        conferenceRoomDTO.location = conferenceRoom.location;
+        conferenceRoomDTO.setRoomName( conferenceRoom.getRoomName() );
+        conferenceRoomDTO.setSeats( conferenceRoom.getSeats() );
+        conferenceRoomDTO.setLocation( conferenceRoom.getLocation() );
 
         return conferenceRoomDTO;
     }
@@ -46,11 +46,11 @@ public class ConferenceRoomMapperImpl implements ConferenceRoomMapper {
 
         ConferenceRoomEntity conferenceRoomEntity = new ConferenceRoomEntity();
 
+        conferenceRoomEntity.setId( conferenceRoomDTO.getId() );
+        conferenceRoomEntity.setRoomName( conferenceRoomDTO.getRoomName() );
+        conferenceRoomEntity.setLocation( conferenceRoomDTO.getLocation() );
+        conferenceRoomEntity.setSeats( conferenceRoomDTO.getSeats() );
         conferenceRoomEntity.setConferences( conferenceDTOListToConferenceEntityList( conferenceRoomDTO.getConferences() ) );
-        conferenceRoomEntity.id = conferenceRoomDTO.id;
-        conferenceRoomEntity.roomName = conferenceRoomDTO.roomName;
-        conferenceRoomEntity.location = conferenceRoomDTO.location;
-        conferenceRoomEntity.seats = conferenceRoomDTO.seats;
 
         return conferenceRoomEntity;
     }
@@ -61,6 +61,10 @@ public class ConferenceRoomMapperImpl implements ConferenceRoomMapper {
             return;
         }
 
+        conferenceRoom.setId( conferenceRoomDTO.getId() );
+        conferenceRoom.setRoomName( conferenceRoomDTO.getRoomName() );
+        conferenceRoom.setLocation( conferenceRoomDTO.getLocation() );
+        conferenceRoom.setSeats( conferenceRoomDTO.getSeats() );
         if ( conferenceRoom.getConferences() != null ) {
             List<ConferenceEntity> list = conferenceDTOListToConferenceEntityList( conferenceRoomDTO.getConferences() );
             if ( list != null ) {
@@ -77,10 +81,6 @@ public class ConferenceRoomMapperImpl implements ConferenceRoomMapper {
                 conferenceRoom.setConferences( list );
             }
         }
-        conferenceRoom.id = conferenceRoomDTO.id;
-        conferenceRoom.roomName = conferenceRoomDTO.roomName;
-        conferenceRoom.location = conferenceRoomDTO.location;
-        conferenceRoom.seats = conferenceRoomDTO.seats;
     }
 
     protected List<ConferenceDTO> conferenceEntityListToConferenceDTOList(List<ConferenceEntity> list) {

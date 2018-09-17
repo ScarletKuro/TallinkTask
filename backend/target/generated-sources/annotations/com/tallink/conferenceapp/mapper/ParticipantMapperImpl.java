@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2018-09-13T04:07:44+0300",
+    date = "2018-09-17T23:08:20+0300",
     comments = "version: 1.2.0.Final, compiler: javac, environment: Java 1.8.0_171 (Oracle Corporation)"
 )
 @Component
@@ -21,9 +21,9 @@ public class ParticipantMapperImpl implements ParticipantMapper {
 
         ParticipantDTO participantDTO = new ParticipantDTO();
 
-        participantDTO.id = participant.id;
-        participantDTO.participantName = participant.participantName;
-        participantDTO.participantBirthDay = participant.participantBirthDay;
+        participantDTO.setId( participant.getId() );
+        participantDTO.setParticipantName( participant.getParticipantName() );
+        participantDTO.setParticipantBirthDay( participant.getParticipantBirthDay() );
 
         return participantDTO;
     }
@@ -36,9 +36,9 @@ public class ParticipantMapperImpl implements ParticipantMapper {
 
         ParticipantEntity participantEntity = new ParticipantEntity();
 
-        participantEntity.id = participantDTO.id;
-        participantEntity.participantName = participantDTO.participantName;
-        participantEntity.participantBirthDay = participantDTO.participantBirthDay;
+        participantEntity.setId( participantDTO.getId() );
+        participantEntity.setParticipantName( participantDTO.getParticipantName() );
+        participantEntity.setParticipantBirthDay( participantDTO.getParticipantBirthDay() );
 
         return participantEntity;
     }
@@ -49,8 +49,8 @@ public class ParticipantMapperImpl implements ParticipantMapper {
             return;
         }
 
-        participant.id = participantDTO.id;
-        participant.participantName = participantDTO.participantName;
-        participant.participantBirthDay = participantDTO.participantBirthDay;
+        participant.setId( participantDTO.getId() );
+        participant.setParticipantName( participantDTO.getParticipantName() );
+        participant.setParticipantBirthDay( participantDTO.getParticipantBirthDay() );
     }
 }
