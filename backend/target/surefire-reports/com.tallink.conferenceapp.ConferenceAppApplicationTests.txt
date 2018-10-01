@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: com.tallink.conferenceapp.ConferenceAppApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.642 sec - in com.tallink.conferenceapp.ConferenceAppApplicationTests

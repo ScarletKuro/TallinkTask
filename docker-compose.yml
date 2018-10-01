@@ -1,0 +1,26 @@
+version: "3.1"
+
+services: 
+  backend:
+    build: 
+      context: ./backend
+    image: conferenceapp
+    ports:
+      - "8081:8081"
+    networks:
+      - www
+    environment:
+      - NODE_ENV=development
+      - CHOKIDAR_USEPOLLING=true
+  
+  react-client:
+    build:
+      context: ./react-frontend
+    image: react-frontend
+    ports:
+      - "3000:3000"
+    networks:
+      - www
+  
+networks:
+    www:

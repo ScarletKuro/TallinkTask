@@ -103,17 +103,18 @@ const config = {
   ],
   devServer: {
     contentBase: devServerRootPath,
+	host: '0.0.0.0',
     port: 3000,
     hot: true,
     historyApiFallback: true,
 	proxy: {
 			'/api/': {
-				target: 'http://localhost:8081/api',
+				target: 'http://backend:8081/api',
 				secure: false,
 				prependPath: false,
 			},
 			'/oauth/': {
-				target: 'http://localhost:8081/oauth',
+				target: 'http://backend:8081/oauth',
 				secure: false,
 				prependPath: false,
 			},
